@@ -3,8 +3,14 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as syspath;
 
 class ImageInput extends StatefulWidget {
+  final Function _onSelectImage;
+
+  ImageInput(this._onSelectImage);
+
   @override
   _ImageInputState createState() => _ImageInputState();
 }
@@ -17,6 +23,22 @@ class _ImageInputState extends State<ImageInput> {
       source: ImageSource.camera,
       maxWidth: 600,
     );
+
+    if(imageFile == null){
+      return;
+    }
+
+    setState(() {
+      _image = imageFile;
+    });
+
+//    This gets the applicatoin directory in the internal storage
+    final appDir  = await syspath.getApplicationDocumentsDirectory();
+//    This gets the filename of the image
+    final fileName = path.basename(imageFile.path);
+//    This gets the path of the directory and then put the image in it
+    final savedImage  = await imageFile.copy('${appDir.path}/$fileName');
+    widget._onSelectImage(savedImage);
   }
 
   @override
