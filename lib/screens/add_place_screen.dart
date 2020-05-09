@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:locate_me/providers/user_places.dart';
 import 'package:locate_me/widgets/image_input.dart';
+import 'package:locate_me/widgets/place_input.dart';
 import 'package:provider/provider.dart';
 
 class AddPlaceScreen extends StatefulWidget {
@@ -55,7 +56,11 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                       height: 10,
                     ),
 //                    pass the reference to the function as a constructor
-                    ImageInput(_selectImage)
+                    ImageInput(_selectImage),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    PlaceInput(),
                   ],
                 ),
               ),
