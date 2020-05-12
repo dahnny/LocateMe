@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:locate_me/providers/user_places.dart';
+import 'package:locate_me/screens/place_detail_screen.dart';
 
 import 'add_place_screen.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,8 @@ class PlacesListScreen extends StatelessWidget {
                 child: CircularProgressIndicator(),
               )
             : Consumer<UserPlaces>(
-                child: Center(child: Text('There are no places, you can add some')),
+                child: Center(
+                    child: Text('There are no places, you can add some')),
                 builder: (ctx, userPlaces, ch) => userPlaces.items.length <= 0
                     ? ch
                     : ListView.builder(
@@ -39,7 +41,14 @@ class PlacesListScreen extends StatelessWidget {
                                 FileImage(userPlaces.items[index].image),
                           ),
                           title: Text(userPlaces.items[index].title),
-                          onTap: () {},
+                          subtitle:
+                              Text(userPlaces.items[index].location.address),
+                          onTap: () {
+//                            pass the id of the
+                            Navigator.of(context).pushNamed(
+                                PlaceDetailScreen.routeName,
+                                arguments: userPlaces.items[index].id);
+                          },
                         ),
                         itemCount: userPlaces.items.length,
                       ),

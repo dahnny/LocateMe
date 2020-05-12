@@ -10,7 +10,7 @@ class DbHelper {
         onCreate: (db, version) {
 //      This creates the table with the fields
       return db.execute(
-          'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT)');
+          'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT, loc_lat REAL, loc_lng REAL, address TEXT)');
     }, version: 1);
   }
 
